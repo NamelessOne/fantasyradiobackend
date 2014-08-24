@@ -5,7 +5,6 @@ import test
 
 
 def application(environ, start_response):
-    application().debug = True
     parameters = parse_qs(environ.get('QUERY_STRING', ''))
     if 'subject' in parameters:
         subject = escape(parameters['subject'][0])
