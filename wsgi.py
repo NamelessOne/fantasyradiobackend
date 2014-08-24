@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 from cgi import parse_qs, escape
+import test
 
 
 def application(environ, start_response):
@@ -8,6 +9,9 @@ def application(environ, start_response):
     parameters = parse_qs(environ.get('QUERY_STRING', ''))
     if 'subject' in parameters:
         subject = escape(parameters['subject'][0])
+        if subject=='hui':
+            test.hui()
+
     else:
         subject = 'World'
     start_response('200 OK', [('Content-Type', 'text/html')])
