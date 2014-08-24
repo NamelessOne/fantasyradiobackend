@@ -1,35 +1,20 @@
 #!/usr/bin/env python
 import os
+from cgi import parse_qs, escape
 
 
 def application(environ, start_response):
 
-    ctype = 'text/plain'
-    if environ['PATH_INFO'] == '/health':
-        response_body = "1"
-    elif environ['PATH_INFO'] == '/env':
-        response_body = ['%s: %s' % (key, value)
-                    for key, value in sorted(environ.items())]
-        response_body = '\n'.join(response_body)
+    parameters = parse_qs(environ.get('QUERY_STRING', ''))
+    if 'subject' in parameters:
+        subject = escape(parameters['subject'][0])
     else:
-        ctype = 'text/html'
-        response_body = '''<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Welcome to OpenShift</title>
-<style>
-</head>
-<body>
-        ХУЙ ПИЗДА ДЖИГУРДА!!!111
-</body>
-</html>'''
-    status = '200 OK'
-    response_headers = [('Content-Type', ctype), ('Content-Length', str(len(response_body)))]
-    #
-    start_response(status, response_headers)
-    return [response_body.encode('utf-8') ]
+        subject = 'World'
+    start_response('200 OK', [('Content-Type', 'text/html')])
+    return ['''Hello %(subject)s
+    Hello %(subject)s!
+
+''' % {'subject': subject}]
 
 #
 # Below for testing only
