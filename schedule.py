@@ -16,7 +16,7 @@ def add(self, environ):
     parameters = parse_qs(environ.get('QUERY_STRING', ''))
     response_body = ""
     if 'clientID' in parameters:
-        clienID = escape(parameters['clientID'][0])
+        clientid = escape(parameters['clientID'][0])
     if 'time' in parameters:
         time = escape(parameters['time'][0])
     #Connect to base
@@ -25,8 +25,31 @@ def add(self, environ):
     except Exception as e:
         s = str(e)
         response_body += s
+        return response_body
     cur = conn.cursor()
-    return ""
+    try:
+        cur.execute("INSERT INTO schedule(clientID,time) VALUES (%s,%s)", (clientid, time))
+    except pymysql.DataError as e:
+        #Ошибки MySQL всегда четырехразрядные, помни об этом!!!
+        s = str(e.args[0])
+        response_body += "-" + s[1] + s[2] + s[3] + s[4]
+        return response_body
+    except pymysql.IntegrityError as e:
+        s = str(e.args[0])
+        response_body += "-" + s[1] + s[2] + s[3] + s[4]
+        return response_body
+    except pymysql.ProgrammingError as e:
+        s = str(e.args[0])
+        response_body += "-" + s[1] + s[2] + s[3] + s[4]
+        return response_body
+    except pymysql.NotSupportedError as e:
+        s = str(e.args[0])
+        response_body += "-" + s[1] + s[2] + s[3] + s[4]
+        return response_body
+    conn.commit()
+    cur.close()
+    conn.close()
+    return response_body
 
 
 def remove(self, environ):
