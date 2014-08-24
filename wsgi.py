@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 import os
+import sys
 from cgi import parse_qs, escape
 import test
+sys.path.append(os.path.dirname(__file__))
 
 
 def application(environ, start_response):
