@@ -5,11 +5,11 @@ import test
 
 
 def application(environ, start_response):
-
+    application().debug = True
     parameters = parse_qs(environ.get('QUERY_STRING', ''))
     if 'subject' in parameters:
         subject = escape(parameters['subject'][0])
-        if subject=='hui':
+        if subject == 'hui':
             return test.hui()
     else:
         subject = 'World'
@@ -24,6 +24,7 @@ def application(environ, start_response):
 #
 if __name__ == '__main__':
     from wsgiref.simple_server import make_server
+
     httpd = make_server('localhost', 8051, application)
     # Wait for a single request, serve it and quit.
     httpd.handle_reques()
