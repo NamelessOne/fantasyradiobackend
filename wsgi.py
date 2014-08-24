@@ -10,8 +10,7 @@ def application(environ, start_response):
     if 'subject' in parameters:
         subject = escape(parameters['subject'][0])
         if subject=='hui':
-            test.hui()
-
+            return test.hui()
     else:
         subject = 'World'
     start_response('200 OK', [('Content-Type', 'text/html')])
