@@ -1,25 +1,20 @@
 #!/usr/bin/env python
 import os
 import sys
-from cgi import parse_qs, escape
-import test
+import schedule
 sys.path.append(os.path.dirname(__file__))
 
 
 def application(environ, start_response):
-    parameters = parse_qs(environ.get('QUERY_STRING', ''))
-    if 'subject' in parameters:
-        subject = escape(parameters['subject'][0])
-        if subject == 'hui':
-            start_response('200 OK', [('Content-Type', 'text/html')])
-            return test.hui()
-    else:
-        subject = 'World'
+    if environ['PATH_INFO'] == '/add':
+        schedule.add(environ)
+    if environ['PATH_INFO'] == '/remove':
+        schedule.remove(environ)
     start_response('200 OK', [('Content-Type', 'text/html')])
     return ['''Hello %(subject)s
     Hello %(subject)s!
 
-''' % {'subject': subject}]
+''' % {'subject': '111'}]
 
 #
 # Below for testing only
