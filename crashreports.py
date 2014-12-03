@@ -10,13 +10,23 @@ user = os.environ['OPENSHIFT_MYSQL_DB_USERNAME']
 password = os.environ['OPENSHIFT_MYSQL_DB_PASSWORD']
 db = os.environ['OPENSHIFT_APP_NAME']
 
-def add(environ):
-    # Get data from fields
-    parameters = parse_qs(environ.get('QUERY_STRING', ''))
-    report = CrashReport.CrashReport(parameters)
-    response_body = ""
-    #TODO собственно тут парсим кучу параметров
 
+def add(environ):
+    # the environment variable CONTENT_LENGTH may be empty or missing
+    try:
+        request_body_size = int(environ.get('CONTENT_LENGTH', 0))
+    except ValueError:
+        request_body_size = 0
+
+    # When the method is POST the query string will be sent
+    # in the HTTP request body which is passed by the WSGI server
+    # in the file like wsgi.input environment variable.
+    request_body = environ['wsgi.input'].read(request_body_size)
+    d = parse_qs(request_body)
+
+    report = CrashReport.CrashReport(d)
+
+    response_body = ""
     #Connect to base
     try:
         conn = pymysql.connect(host=host, port=3306, user=user, passwd=password, db=db)
