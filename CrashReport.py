@@ -1,6 +1,7 @@
 __author__ = 'NamelessOne'
 from cgi import parse_qs, escape
 
+
 class CrashReport:
     def __init__(self, parameters):
         if 'REPORT_ID' in parameters:
@@ -24,7 +25,7 @@ class CrashReport:
         if 'BUILD' in parameters:
             self.build = escape(parameters['BUILD'][0])
         if 'TOTAL_MEM_SIZE' in parameters:
-            self.totla_mem_size = escape(parameters['TOTAL_MEM_SIZE'][0])
+            self.total_mem_size = escape(parameters['TOTAL_MEM_SIZE'][0])
         if 'AVAILABLE_MEM_SIZE' in parameters:
             self.available_mem_size = escape(parameters['AVAILABLE_MEM_SIZE'][0])
         if 'CUSTOM_DATA' in parameters:

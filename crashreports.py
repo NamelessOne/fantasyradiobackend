@@ -13,7 +13,7 @@ db = os.environ['OPENSHIFT_APP_NAME']
 def add(environ):
     # Get data from fields
     parameters = parse_qs(environ.get('QUERY_STRING', ''))
-    report = CrashReport(parameters)
+    report = CrashReport.CrashReport(parameters)
     response_body = ""
     #TODO собственно тут парсим кучу параметров
 
