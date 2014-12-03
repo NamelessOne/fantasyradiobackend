@@ -31,7 +31,8 @@ def add(environ):
                     "CUSTOM_DATA, IS_SILENT, STACK_TRACE, INITIAL_CONFIGURATION, CRASH_CONFIGURATION, DISPLAY, "
                     "USER_COMMENT, USER_EMAIL, USER_APP_START_DATE, USER_CRASH_DATE, DUMPSYS_MEMINFO, LOGCAT, "
                     "INSTALLATION_ID, DEVICE_FEATURES, ENVIRONMENT, SHARED_PREFERENCES, SETTINGS_SYSTEM, "
-                    "SETTINGS_SECURE) VALUES (%s,%s)", (report.report_id, report.app_version_code,
+                    "SETTINGS_SECURE) VALUES (%s, %d, %s, %s, %s, %s, %s, %s, %s, %s, %d, %d, %s, %s, %s, %s, %s, %s, "
+                    "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (report.report_id, report.app_version_code,
                     report.app_version_name, report.package_name, report.file_path, report.phone_model, report.brand,
                     report.product, report.android_version, report.build, report.total_mem_size,
                     report.available_mem_size, report.custom_data, report.is_silent, report.stack_trace,
