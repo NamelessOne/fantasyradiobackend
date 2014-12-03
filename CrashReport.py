@@ -1,36 +1,34 @@
 __author__ = 'NamelessOne'
-from cgi import parse_qs, escape
-
 
 class CrashReport:
     def __init__(self, parameters):
-        self.report_id = parameters.get('REPORT_ID', [''])[0]
-        self.app_version_code = parameters.get('APP_VERSION_CODE', [''])[0]
-        self.app_version_name = parameters.get('APP_VERSION_NAME', [''])[0]
-        self.package_name = parameters.get('PACKAGE_NAME', [''])[0]
-        self.file_path = parameters.get('FILE_PATH', [''])[0]
-        self.phone_model = parameters.get('PHONE_MODEL', [''])[0]
-        self.brand = parameters.get('BRAND', [''])[0]
-        self.product = parameters.get('PRODUCT', [''])[0]
-        self.android_version = parameters.get('ANDROID_VERSION', [''])[0]
-        self.build = parameters.get('BUILD', [''])[0]
-        self.total_mem_size = parameters.get('TOTAL_MEM_SIZE', [''])[0]
-        self.available_mem_size = parameters.get('AVAILABLE_MEM_SIZE', [''])[0]
-        self.custom_data = parameters.get('CUSTOM_DATA', [''])[0]
-        self.is_silent = parameters.get('IS_SILENT', [''])[0]
-        self.stack_trace = parameters.get('STACK_TRACE', [''])[0]
-        self.initial_configuration = parameters.get('INITIAL_CONFIGURATION', [''])[0]
-        self.crash_configuration = parameters.get('CRASH_CONFIGURATION', [''])[0]
-        self.display = parameters.get('DISPLAY', [''])[0]
-        self.user_comment = parameters.get('USER_COMMENT', [''])[0]
-        self.user_email = parameters.get('USER_EMAIL', [''])[0]
-        self.user_app_start_date = parameters.get('USER_APP_START_DATE', [''])[0]
-        self.user_crash_date = parameters.get('USER_CRASH_DATE', [''])[0]
-        self.dumpsys_meminfo = parameters.get('DUMPSYS_MEMINO', [''])[0]
-        self.logcat = parameters.get('LOGCAT', [''])[0]
-        self.installation_id = parameters.get('INSTALLATION_ID', [''])[0]
-        self.device_features = parameters.get('DEVICE_EATURES', [''])[0]
-        self.environment = parameters.get('ENVIRONMENT', [''])[0]
-        self.shared_preferences = parameters.get('SHARED_PREFERENCES', [''])[0]
-        self.settings_system = parameters.get('SETTINGS_SYSTEM', [''])[0]
-        self.settings_secure = parameters.get('SETTINGS_SECURE', [''])[0]
+        self.report_id = parameters.get('REPORT_ID', '')
+        self.app_version_code = parameters.get('APP_VERSION_CODE', '')
+        self.app_version_name = parameters.get('APP_VERSION_NAME', '')
+        self.package_name = parameters.get('PACKAGE_NAME', '')
+        self.file_path = parameters.get('FILE_PATH', '')
+        self.phone_model = parameters.get('PHONE_MODEL', '')
+        self.brand = parameters.get('BRAND', '')
+        self.product = parameters.get('PRODUCT', '')
+        self.android_version = parameters.get('ANDROID_VERSION', '')
+        self.build = parameters.get('BUILD', '')
+        self.total_mem_size = parameters.get('TOTAL_MEM_SIZE', '')
+        self.available_mem_size = parameters.get('AVAILABLE_MEM_SIZE', '')
+        self.custom_data = parameters.get('CUSTOM_DATA', '')
+        self.is_silent = parameters.get('IS_SILENT', '')
+        self.stack_trace = parameters.get('STACK_TRACE', '')
+        self.initial_configuration = parameters.get('INITIAL_CONFIGURATION', '')
+        self.crash_configuration = parameters.get('CRASH_CONFIGURATION', '')
+        self.display = parameters.get('DISPLAY', '')
+        self.user_comment = parameters.get('USER_COMMENT', '')
+        self.user_email = parameters.get('USER_EMAIL', '')
+        self.user_app_start_date = parameters.get('USER_APP_START_DATE', '')
+        self.user_crash_date = parameters.get('USER_CRASH_DATE', '')
+        self.dumpsys_meminfo = parameters.get('DUMPSYS_MEMINO', '')
+        self.logcat = parameters.get('LOGCAT', '')
+        self.installation_id = parameters.get('INSTALLATION_ID', '')
+        self.device_features = parameters.get('DEVICE_EATURES', '')
+        self.environment = parameters.get('ENVIRONMENT', '')
+        self.shared_preferences = parameters.get('SHARED_PREFERENCES', '')
+        self.settings_system = parameters.get('SETTINGS_SYSTEM', '')
+        self.settings_secure = parameters.get('SETTINGS_SECURE', '')

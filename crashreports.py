@@ -4,6 +4,7 @@ import os
 import pymysql
 import CrashReport
 from cgi import parse_qs, escape
+from paste import request
 
 host = os.environ['OPENSHIFT_MYSQL_DB_HOST']
 user = os.environ['OPENSHIFT_MYSQL_DB_USERNAME']
@@ -12,19 +13,13 @@ db = os.environ['OPENSHIFT_APP_NAME']
 
 
 def add(environ):
-    # the environment variable CONTENT_LENGTH may be empty or missing
-    try:
-        request_body_size = int(environ.get('CONTENT_LENGTH', 0))
-    except ValueError:
-        request_body_size = 0
+    fields = request.parse_formvars(environ)
 
     # When the method is POST the query string will be sent
     # in the HTTP request body which is passed by the WSGI server
     # in the file like wsgi.input environment variable.
-    request_body = environ['wsgi.input'].read(request_body_size)
-    d = parse_qs(request_body)
 
-    report = CrashReport.CrashReport(d)
+    report = CrashReport.CrashReport(fields)
 
     response_body = ""
     #Connect to base
