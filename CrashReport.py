@@ -5,7 +5,7 @@ from cgi import parse_qs, escape
 class CrashReport:
     def __init__(self, parameters):
         if 'REPORT_ID' in parameters:
-            self.report_id = escape(parameters['REPORT_ID'][0])
+            self.report_id = '111'#escape(parameters['REPORT_ID'][0])
         if 'APP_VERSION_CODE' in parameters:
             self.app_version_code = escape(parameters['APP_VERSION_CODE'][0])
         if 'APP_VERSION_NAME' in parameters:
