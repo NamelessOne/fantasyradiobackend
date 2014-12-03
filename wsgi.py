@@ -2,6 +2,7 @@
 import os
 import sys
 import schedule
+import crashreports
 sys.path.append(os.path.dirname(__file__))
 
 
@@ -10,6 +11,8 @@ def application(environ, start_response):
         schedule.add(environ)
     if environ['PATH_INFO'] == '/remove':
         schedule.remove(environ)
+    if environ['PATH_INFO'] == '/crash':
+        crashreports.add(environ)
     start_response('200 OK', [('Content-Type', 'text/html')])
     return ['''Hello %(subject)s
     Hello %(subject)s!
