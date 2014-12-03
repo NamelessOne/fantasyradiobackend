@@ -11,7 +11,7 @@ password = os.environ['OPENSHIFT_MYSQL_DB_PASSWORD']
 db = os.environ['OPENSHIFT_APP_NAME']
 
 
-def add(self, environ):
+def add(environ):
     # Get data from fields
     parameters = parse_qs(environ.get('QUERY_STRING', ''))
     response_body = ""
@@ -52,5 +52,5 @@ def add(self, environ):
     return response_body
 
 
-def remove(self, environ):
+def remove(environ):
     return ""

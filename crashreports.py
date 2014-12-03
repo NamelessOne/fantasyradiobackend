@@ -10,7 +10,7 @@ user = os.environ['OPENSHIFT_MYSQL_DB_USERNAME']
 password = os.environ['OPENSHIFT_MYSQL_DB_PASSWORD']
 db = os.environ['OPENSHIFT_APP_NAME']
 
-def add(self, environ):
+def add(environ):
     # Get data from fields
     parameters = parse_qs(environ.get('QUERY_STRING', ''))
     report = CrashReport(parameters)
