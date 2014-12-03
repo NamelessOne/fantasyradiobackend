@@ -4,9 +4,8 @@ from cgi import parse_qs, escape
 
 class CrashReport:
     def __init__(self, parameters):
-        self.report_id = "111"
-        #if 'REPORT_ID' in parameters:
-        #    self.report_id = parameters.get('REPORT_ID', [''])[0]
+        if 'REPORT_ID' in parameters:
+            self.report_id = parameters.get('REPORT_ID')[0]
         if 'APP_VERSION_CODE' in parameters:
             self.app_version_code = parameters.get('APP_VERSION_CODE', [''])[0]
         if 'APP_VERSION_NAME' in parameters:
