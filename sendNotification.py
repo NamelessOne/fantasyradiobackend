@@ -6,14 +6,14 @@ import gcm
 from datetime import datetime
 
 
-def send_notification(userKey):
+def send_notification(user_key):
     gcm_object = gcm.GCM(consts.API_KEY)
     data = {'param1': 'value1', 'param2': 'value2'}
-    gcm_object.json_request(registration_ids=userKey, data=data)
+    gcm_object.json_request(registration_ids=user_key, data=data)
     pass
 
 
-def get_all_entities_before_datetime(datetime):
+def get_all_entities_before_datetime(time):
     s = ""
     try:
         conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
@@ -21,7 +21,7 @@ def get_all_entities_before_datetime(datetime):
         s = str(e)
     cur = conn.cursor()
     try:
-        cur.execute("SELECT CLIENT_KEY FROM ScheduleEntities WHERE date < %s", datetime)
+        cur.execute("SELECT CLIENT_KEY FROM ScheduleEntities WHERE date < %s", time)
     except pymysql.DataError as e:
         #Ошибки MySQL всегда четырехразрядные, помни об этом!!!
         s = str(e.args[0])
@@ -37,7 +37,7 @@ def get_all_entities_before_datetime(datetime):
     return s
 
 
-def remove_all_entities_before_datetime(datetime):
+def remove_all_entities_before_datetime(time):
     s = ""
     try:
         conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
@@ -45,7 +45,7 @@ def remove_all_entities_before_datetime(datetime):
         s = str(e)
     cur = conn.cursor()
     try:
-        cur.execute("DELETE FROM ScheduleEntities WHERE date < %s", datetime)
+        cur.execute("DELETE FROM ScheduleEntities WHERE date < %s", time)
     except pymysql.DataError as e:
         #Ошибки MySQL всегда четырехразрядные, помни об этом!!!
         s = str(e.args[0])
