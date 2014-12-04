@@ -1,14 +1,9 @@
 __author__ = 'NamelessOne'
 
-import os
+import consts
 import pymysql
 import CrashReport
 from cgi import FieldStorage
-
-host = os.environ['OPENSHIFT_MYSQL_DB_HOST']
-user = os.environ['OPENSHIFT_MYSQL_DB_USERNAME']
-password = os.environ['OPENSHIFT_MYSQL_DB_PASSWORD']
-db = os.environ['OPENSHIFT_APP_NAME']
 
 
 def add(environ):
@@ -22,7 +17,7 @@ def add(environ):
     response_body = ""
     #Connect to base
     try:
-        conn = pymysql.connect(host=host, port=3306, user=user, passwd=password, db=db)
+        conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
     except Exception as e:
         s = str(e)
         response_body += s

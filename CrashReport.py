@@ -1,5 +1,6 @@
 __author__ = 'NamelessOne'
 
+
 class CrashReport:
     def __init__(self, parameters):
         self.report_id = parameters.getvalue('REPORT_ID', "")

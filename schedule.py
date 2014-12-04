@@ -1,14 +1,11 @@
 #!/usr/bin/env python
-import os
 import pymysql
 from cgi import parse_qs, escape
+import consts
 
 #parameters = parse_qs(environ.get('QUERY_STRING', ''))
 #if 'subject' in parameters:
-host = os.environ['OPENSHIFT_MYSQL_DB_HOST']
-user = os.environ['OPENSHIFT_MYSQL_DB_USERNAME']
-password = os.environ['OPENSHIFT_MYSQL_DB_PASSWORD']
-db = os.environ['OPENSHIFT_APP_NAME']
+
 
 
 def add(environ):
@@ -22,7 +19,7 @@ def add(environ):
         #TODO time нужно отформатировать
     #Connect to base
     try:
-        conn = pymysql.connect(host=host, port=3306, user=user, passwd=password, db=db)
+        conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
     except Exception as e:
         s = str(e)
         response_body += s
