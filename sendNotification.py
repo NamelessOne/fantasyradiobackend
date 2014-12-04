@@ -2,9 +2,11 @@
 __author__ = 'NamelessOne'
 import pymysql
 import consts
+import gcm
 
 
 def send_notification(userKey):
+    gcm_object = gcm.GCM(consts.API_KEY)
     pass
 
 

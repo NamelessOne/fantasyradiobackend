@@ -3,11 +3,11 @@ __author__ = 'NamelessOne'
 import consts
 import pymysql
 import CrashReport
-from cgi import FieldStorage
+import cgi
 
 
 def add(environ):
-    form = FieldStorage(fp=environ['wsgi.input'], environ=environ)
+    form = cgi.FieldStorage(fp=environ['wsgi.input'], environ=environ)
     # When the method is POST the query string will be sent
     # in the HTTP request body which is passed by the WSGI server
     # in the file like wsgi.input environment variable.

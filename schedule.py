@@ -1,21 +1,20 @@
 #!/usr/bin/env python
 import pymysql
-from cgi import parse_qs, escape
+import cgi
 import consts
 
 #parameters = parse_qs(environ.get('QUERY_STRING', ''))
 #if 'subject' in parameters:
 
 
-
 def add(environ):
     # Get data from fields
-    parameters = parse_qs(environ.get('QUERY_STRING', ''))
+    parameters = cgi.parse_qs(environ.get('QUERY_STRING', ''))
     response_body = ""
     if 'clientID' in parameters:
-        client_key = escape(parameters['clientID'][0])
+        client_key = cgi.escape(parameters['clientID'][0])
     if 'time' in parameters:
-        time = escape(parameters['time'][0])
+        time = cgi.escape(parameters['time'][0])
         #TODO time нужно отформатировать
     #Connect to base
     try:
