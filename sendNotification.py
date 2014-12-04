@@ -3,10 +3,13 @@ __author__ = 'NamelessOne'
 import pymysql
 import consts
 import gcm
+from datetime import datetime
 
 
 def send_notification(userKey):
     gcm_object = gcm.GCM(consts.API_KEY)
+    data = {'param1': 'value1', 'param2': 'value2'}
+    gcm_object.json_request(registration_ids=userKey, data=data)
     pass
 
 
@@ -28,8 +31,9 @@ def get_all_entities_before_datetime(datetime):
         s = str(e.args[0])
     except pymysql.NotSupportedError as e:
         s = str(e.args[0])
-    for key in cur:
-        send_notification(key)
+    #for key in cur:
+    #    send_notification(key)
+    send_notification(cur)
     return s
 
 
@@ -52,3 +56,9 @@ def remove_all_entities_before_datetime(datetime):
     except pymysql.NotSupportedError as e:
         s = str(e.args[0])
     return s
+
+#main
+now = datetime.now()
+get_all_entities_before_datetime(now)
+remove_all_entities_before_datetime(now)
+
