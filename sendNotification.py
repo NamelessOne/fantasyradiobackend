@@ -26,7 +26,9 @@ def get_all_entities_before_datetime(datetime):
         s = str(e.args[0])
     except pymysql.NotSupportedError as e:
         s = str(e.args[0])
-    return cur
+    for key in cur:
+        send_notification(key)
+    return s
 
 
 def remove_all_entities_before_datetime(datetime):
