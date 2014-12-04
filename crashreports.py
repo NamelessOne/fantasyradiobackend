@@ -3,7 +3,7 @@ __author__ = 'NamelessOne'
 import os
 import pymysql
 import CrashReport
-from cgi import parse_qs, escape, FieldStorage
+from cgi import FieldStorage
 
 host = os.environ['OPENSHIFT_MYSQL_DB_HOST']
 user = os.environ['OPENSHIFT_MYSQL_DB_USERNAME']

@@ -16,9 +16,10 @@ def add(environ):
     parameters = parse_qs(environ.get('QUERY_STRING', ''))
     response_body = ""
     if 'clientID' in parameters:
-        clientid = escape(parameters['clientID'][0])
+        client_key = escape(parameters['clientID'][0])
     if 'time' in parameters:
         time = escape(parameters['time'][0])
+        #TODO time нужно отформатировать
     #Connect to base
     try:
         conn = pymysql.connect(host=host, port=3306, user=user, passwd=password, db=db)
@@ -28,7 +29,7 @@ def add(environ):
         return response_body
     cur = conn.cursor()
     try:
-        cur.execute("INSERT INTO schedule(clientID,time) VALUES (%s,%s)", (clientid, time))
+        cur.execute("INSERT INTO ScheduleEntities(CLIENT_KEY, TIME) VALUES (%s,%s)", (client_key, time))
     except pymysql.DataError as e:
         #Ошибки MySQL всегда четырехразрядные, помни об этом!!!
         s = str(e.args[0])
