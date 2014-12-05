@@ -7,6 +7,7 @@ import urllib.parse
 import json
 from urllib.request import Request, urlopen
 import urllib.error
+import pytz
 
 
 def send_notification(user_keys):
@@ -74,7 +75,8 @@ def remove_all_entities_before_datetime(time):
     return s
 
 #main
-now = datetime.now()
+tz_moscow = pytz.timezone('Europe/Moscow')
+now = datetime.now(tz_moscow)
 print(now)
 get_all_entities_before_datetime(now)
 remove_all_entities_before_datetime(now)
