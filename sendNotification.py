@@ -74,7 +74,7 @@ def remove_all_entities_before_datetime(time):
     return s
 
 #main
-now = datetime.now(tzinfo().tzname("Europe/Moscow"))
+now = datetime.now()
 print(now)
 get_all_entities_before_datetime(now)
 remove_all_entities_before_datetime(now)
