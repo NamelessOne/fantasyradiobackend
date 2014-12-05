@@ -2,14 +2,26 @@
 __author__ = 'NamelessOne'
 import pymysql
 import consts
-from gcm import GCM
 from datetime import datetime
+import urllib.parse
+import json
+from urllib.request import Request, urlopen
 
 
-def send_notification(user_key):
-    gcm_object = GCM(consts.API_KEY)
+def send_notification(user_keys):
+    #-----------------------------
+    url = 'https://android.googleapis.com/gcm/send'
+
+    headers = {
+        'Content-Type:application/json',
+        'Authorization:key=' + consts.API_KEY
+    }
+    #-----------------------------
+    json.dumps(user_keys)
+    print(json)
     data = {'param1': 'value1', 'param2': 'value2'}
-    gcm_object.json_request(registration_ids=user_key, data=data)
+    details = urllib.parse.urlencode(data)
+    #-----------------------------
     pass
 
 
