@@ -19,8 +19,8 @@ def send_notification(user_keys):
     #-----------------------------
     data = {'param1': 'value1', 'param2': 'value2'}
     json_body = {"registration_ids": user_keys, "data": data}
-    #-----------------------------
-    r = Request(url=url, headers=headers, data=json.dumps(json_body))
+    #----------------------------
+    r = Request(url=url, headers=headers, data=json.dumps(json_body).encode())
     urllib.request.urlopen(r)
     print(urllib)
     return
