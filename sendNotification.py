@@ -11,18 +11,18 @@ from urllib.request import Request, urlopen
 def send_notification(user_keys):
     #-----------------------------
     url = 'https://android.googleapis.com/gcm/send'
-
     headers = {
         'Content-Type:application/json',
         'Authorization:key=' + consts.API_KEY
     }
+
     #-----------------------------
     data = {'param1': 'value1', 'param2': 'value2'}
     json_body = {"registrtion_ids": user_keys, "data": data}
     print(json.dumps(json_body))
-    details = urllib.parse.urlencode(data)
     #-----------------------------
-    pass
+    urllib.request.Request(url=url, headers=headers, data=json.dumps(json_body))
+    return
 
 
 def get_all_entities_before_datetime(time):
