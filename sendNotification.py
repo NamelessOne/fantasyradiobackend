@@ -21,7 +21,8 @@ def send_notification(user_keys):
     json_body = {"registration_ids": user_keys, "data": data}
     #-----------------------------
     r = Request(url=url, headers=headers, data=json.dumps(json_body))
-    print(r.read())
+    urllib.request.urlopen(r)
+    print(urllib)
     return
 
 
