@@ -45,7 +45,7 @@ def get_all_entities_before_datetime(time):
         s = str(e.args[0])
     #for key in cur:
     #    send_notification(key)
-    send_notification(cur)
+    send_notification(cur.fetchall())
     return s
 
 
