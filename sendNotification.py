@@ -3,12 +3,11 @@ __author__ = 'NamelessOne'
 import pymysql
 import consts
 from gcm import GCM
-import os
 from datetime import datetime
 
 
 def send_notification(user_key):
-    gcm_object = gcm.GCM(consts.API_KEY)
+    gcm_object = GCM(consts.API_KEY)
     data = {'param1': 'value1', 'param2': 'value2'}
     gcm_object.json_request(registration_ids=user_key, data=data)
     pass
