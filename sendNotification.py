@@ -3,6 +3,7 @@ __author__ = 'NamelessOne'
 import pymysql
 import consts
 import gcm
+import os
 from datetime import datetime
 
 
@@ -59,7 +60,8 @@ def remove_all_entities_before_datetime(time):
 
 #main
 now = datetime.now()
-print(now)
+f = open(os.environ['$OPENSHIFT_REPO_DIR'], 'w')
+f.write(now)
 get_all_entities_before_datetime(now)
 remove_all_entities_before_datetime(now)
 
