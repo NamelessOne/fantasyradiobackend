@@ -2,7 +2,7 @@
 __author__ = 'NamelessOne'
 import pymysql
 import consts
-from datetime import datetime
+from datetime import datetime, tzinfo
 import urllib.parse
 import json
 from urllib.request import Request, urlopen
@@ -74,7 +74,7 @@ def remove_all_entities_before_datetime(time):
     return s
 
 #main
-now = datetime.now()
+now = datetime.now(tzinfo().tzname("Europe/Moscow"))
 print(now)
 get_all_entities_before_datetime(now)
 remove_all_entities_before_datetime(now)
