@@ -59,6 +59,8 @@ def remove_all_entities_before_datetime(time):
 
 #main
 now = datetime.now()
+f = open('1.txt', 'w')
+f.write(now)
 get_all_entities_before_datetime(now)
 remove_all_entities_before_datetime(now)
 
