@@ -33,7 +33,7 @@ def get_all_entities_before_datetime(time):
         s = str(e)
     cur = conn.cursor()
     try:
-        cur.execute("SELECT CLIENT_KEY FROM ScheduleEntities WHERE date < %s", time)
+        cur.execute("SELECT CLIENT_KEY FROM ScheduleEntities WHERE TIME < %s", time)
     except pymysql.DataError as e:
         #Ошибки MySQL всегда четырехразрядные, помни об этом!!!
         s = str(e.args[0])
@@ -57,7 +57,7 @@ def remove_all_entities_before_datetime(time):
         s = str(e)
     cur = conn.cursor()
     try:
-        cur.execute("DELETE FROM ScheduleEntities WHERE date < %s", time)
+        cur.execute("DELETE FROM ScheduleEntities WHERE TIME < %s", time)
     except pymysql.DataError as e:
         #Ошибки MySQL всегда четырехразрядные, помни об этом!!!
         s = str(e.args[0])
