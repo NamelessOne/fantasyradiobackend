@@ -1,1 +1,1 @@
-python $OPENSHIFT_REPO_DIR/sendNotification.py
+python $OPENSHIFT_REPO_DIR/sendNotification.pys
