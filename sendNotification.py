@@ -17,8 +17,9 @@ def send_notification(user_keys):
         'Authorization:key=' + consts.API_KEY
     }
     #-----------------------------
-    print(json.dumps(user_keys))
     data = {'param1': 'value1', 'param2': 'value2'}
+    json_body = {"registrtion_ids": user_keys, "data": data}
+    print(json.dumps(json_body))
     details = urllib.parse.urlencode(data)
     #-----------------------------
     pass
