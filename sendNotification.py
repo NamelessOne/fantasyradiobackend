@@ -12,16 +12,15 @@ def send_notification(user_keys):
     #-----------------------------
     url = 'https://android.googleapis.com/gcm/send'
     headers = {
-        'Content-Type':'application/json',
-        'Authorization':'key=' + consts.API_KEY
+        'Content-Type': 'application/json',
+        'Authorization': 'key=' + consts.API_KEY
     }
 
     #-----------------------------
     data = {'param1': 'value1', 'param2': 'value2'}
     json_body = {"registration_ids": user_keys, "data": data}
-    print(json.dumps(json_body))
     #-----------------------------
-    Request(url=url, headers=headers, data=json.dumps(json_body))
+    print(Request(url=url, headers=headers, data=json.dumps(json_body)))
     return
 
 
