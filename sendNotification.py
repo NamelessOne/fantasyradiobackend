@@ -6,6 +6,7 @@ from datetime import datetime
 import urllib.parse
 import json
 from urllib.request import Request, urlopen
+import urllib.error
 
 
 def send_notification(user_keys):
@@ -21,8 +22,10 @@ def send_notification(user_keys):
     json_body = {"registration_ids": user_keys, "data": data}
     #----------------------------
     r = Request(url=url, headers=headers, data=json.dumps(json_body).encode())
-    urllib.request.urlopen(r)
-    print(urllib)
+    try:
+        urllib.request.urlopen(r)
+    except urllib.error.HTTPError:
+        print("httpError")
     return
 
 
