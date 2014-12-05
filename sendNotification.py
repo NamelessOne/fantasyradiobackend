@@ -11,6 +11,7 @@ import pytz
 
 
 def send_notification(user_keys):
+    #TODO отправлять не более тысячи за раз
     #-----------------------------
     url = 'https://android.googleapis.com/gcm/send'
     headers = {
