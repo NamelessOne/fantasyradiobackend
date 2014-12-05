@@ -18,10 +18,10 @@ def send_notification(user_keys):
 
     #-----------------------------
     data = {'param1': 'value1', 'param2': 'value2'}
-    json_body = {"registrtion_ids": user_keys, "data": data}
+    json_body = {"registration_ids": user_keys, "data": data}
     print(json.dumps(json_body))
     #-----------------------------
-    urllib.request.Request(url=url, headers=headers, data=json.dumps(json_body))
+    Request(url=url, headers=headers, data=json.dumps(json_body))
     return
 
 
