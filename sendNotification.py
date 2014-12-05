@@ -2,7 +2,7 @@
 __author__ = 'NamelessOne'
 import pymysql
 import consts
-from datetime import datetime, tzinfo
+from datetime import datetime
 import urllib.parse
 import json
 from urllib.request import Request, urlopen
