@@ -12,8 +12,8 @@ def send_notification(user_keys):
     #-----------------------------
     url = 'https://android.googleapis.com/gcm/send'
     headers = {
-        'Content-Type:application/json',
-        'Authorization:key=' + consts.API_KEY
+        'Content-Type':'application/json',
+        'Authorization':'key=' + consts.API_KEY
     }
 
     #-----------------------------
