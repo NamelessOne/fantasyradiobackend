@@ -82,7 +82,7 @@ def build_table():
         cur.execute('SELECT * FROM CrashReports')
         rows = cur.fetchall()
         for row in rows:
-            result += "<tr>" + str(row) + "</tr>"
+            result += "<tr><td>" + str(row) + "</tr></td>"
         result += "</table>"
         return result
     except Exception as e:
