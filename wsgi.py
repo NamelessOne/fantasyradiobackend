@@ -29,7 +29,10 @@ def application(environ, start_response):
         environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() #ip
         post_input = urllib.parse.parse_qs(environ['wsgi.input'].readline().decode(), True)
         start_response('200 OK', [('Content-Type', 'text/html')])
-        return environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + post_input['username'][0] + post_input['password'][0]
+        hash = hash(environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + post_input['username'][0] + post_input['password'][0])
+        cookie = SimpleCookie()
+        cookie['login'] = hash
+        return "OK"
         #return get_client_ip(environ)
     start_response('200 OK', [('Content-Type', 'text/html')])
     return ['''Hello %(subject)s
