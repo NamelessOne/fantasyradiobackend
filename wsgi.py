@@ -30,8 +30,8 @@ def application(environ, start_response):
         environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() #ip
         post_input = urllib.parse.parse_qs(environ['wsgi.input'].readline().decode(), True)
         m = hashlib.md5()
-        m.update(environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + post_input['username'][0] +
-                 post_input['password'][0])
+        m.update((environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + post_input['username'][0] +
+                 post_input['password'][0]).encode('utf-8'))
         cookie = SimpleCookie()
         cookie['login'] = m.hexdigest()
         start_response('200 OK', [('Content-Type', 'text/html'), ('Set-Cookie', cookie['login'].OutputString())])
