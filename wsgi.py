@@ -29,7 +29,7 @@ def application(environ, start_response):
         environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() #ip
         post_input = urllib.parse.parse_qs(environ['wsgi.input'].readline().decode(), True)
         start_response('200 OK', [('Content-Type', 'text/html')])
-        return post_input
+        return str(post_input)
         #return get_client_ip(environ)
     start_response('200 OK', [('Content-Type', 'text/html')])
     return ['''Hello %(subject)s
