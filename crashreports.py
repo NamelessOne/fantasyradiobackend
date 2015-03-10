@@ -78,15 +78,21 @@ def build_table():
         return s
     cur = conn.cursor()
     try:
-        result = "<table>"
         cur.execute('SELECT * FROM CrashReports')
         rows = cur.fetchall()
+        #TODO в отдельную функцию
+        field_names = [i[0] for i in cur.description]
+        result = "<table></tr>"
+        for name in field_names:
+            result += "<td>" + name + "</td>"
+        result += "</tr>"
         for row in rows:
             result += "<tr>"
             for elem in row:
                 result += "<td>" + str(elem) + "</td>"
             result += "</tr>"
         result += "</table>"
+        #------------------------
         return result
     except Exception as e:
         return e
