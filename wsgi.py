@@ -27,7 +27,7 @@ def application(environ, start_response):
         start_response('200 OK', [('Content-Type', 'text/html')])
         return templates_builder.render('auth.html', 'text/html')
     if environ['PATH_INFO'] == '/login':
-        environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() #ip
+        environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip()  # ip
         post_input = urllib.parse.parse_qs(environ['wsgi.input'].readline().decode(), True)
         m = hashlib.md5()
         m.update((environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + post_input['username'][0] +
