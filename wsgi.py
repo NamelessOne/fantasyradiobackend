@@ -25,7 +25,7 @@ def application(environ, start_response):
             start_response('200 OK', [('Content-Type', 'text/html')])
             return templates_builder.render('table.html', mapping)
         else:
-            start_response('301 Redirect', [('Location', 'http://www.example.com/')])
+            start_response('301 Redirect', [('Location', '/auth')])
             return ''
     if environ['PATH_INFO'] == '/auth':
         start_response('200 OK', [('Content-Type', 'text/html')])
@@ -62,5 +62,8 @@ def is_authorized(environ):
         cookie = SimpleCookie(environ['HTTP_COOKIE'])
         if 'login' in cookie:
             # handle the cookie value
-            return cookie['login'].value == '111'
+            m = hashlib.md5()
+            m.update((environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + 'NamelessOne' +
+                      'luxextenebris').encode('utf-8'))
+            return cookie['login'].value == m.hexdigest()
     pass
