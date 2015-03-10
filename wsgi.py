@@ -19,7 +19,7 @@ def application(environ, start_response):
         mapping = {'title': 'Welcome to my Website', 'content': content}
         start_response('200 OK', [('Content-Type', 'text/html')])
         return templates_builder.render('table.html', mapping)
-    if environ['PATH_INFO'] == 'auth':
+    if environ['PATH_INFO'] == '/auth':
         start_response('200 OK', [('Content-Type', 'text/html')])
         return templates_builder.render('auth.html', 'text/html')
     start_response('200 OK', [('Content-Type', 'text/html')])
