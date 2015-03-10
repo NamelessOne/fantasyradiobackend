@@ -17,6 +17,7 @@ def application(environ, start_response):
     if environ['PATH_INFO'] == '/table':
         content = "<p>This is my website that I made by myself!</p>"
         mapping = {'title': 'Welcome to my Website', 'content': content}
+        start_response('200 OK', [('Content-Type', 'text/html')])
         return templates_builder.render('table.html', mapping)
     start_response('200 OK', [('Content-Type', 'text/html')])
     return ['''Hello %(subject)s
