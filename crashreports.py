@@ -87,6 +87,7 @@ def build_reports_table():
     except Exception as e:
         return e
 
+
 def __build_html_table(column_names, rows):
     result = "<table></tr>"
     for name in column_names:
