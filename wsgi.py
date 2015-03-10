@@ -19,10 +19,14 @@ def application(environ, start_response):
     if environ['PATH_INFO'] == '/crash':
         crashreports.add(environ)
     if environ['PATH_INFO'] == '/table':
-        content = crashreports.build_reports_table()
-        mapping = {'title': 'Welcome to my Website', 'content': content}
-        start_response('200 OK', [('Content-Type', 'text/html')])
-        return templates_builder.render('table.html', mapping)
+        if is_authorized(environ):
+            content = crashreports.build_reports_table()
+            mapping = {'title': 'Welcome to my Website', 'content': content}
+            start_response('200 OK', [('Content-Type', 'text/html')])
+            return templates_builder.render('table.html', mapping)
+        else:
+            start_response('301 Redirect', [('Location', 'http://www.example.com/')])
+            return ''
     if environ['PATH_INFO'] == '/auth':
         start_response('200 OK', [('Content-Type', 'text/html')])
         return templates_builder.render('auth.html', 'text/html')
@@ -53,10 +57,10 @@ if __name__ == '__main__':
     httpd.handle_reques()
 
 
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[-1].strip()
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
+def is_authorized(environ):
+    if 'HTTP_COOKIE' in environ:
+        cookie = SimpleCookie(environ['HTTP_COOKIE'])
+        if 'login' in cookie:
+            # handle the cookie value
+            return cookie['login'].value
+    pass
