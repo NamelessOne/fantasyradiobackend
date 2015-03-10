@@ -4,6 +4,7 @@ import sys
 import schedule
 import crashreports
 import templates_builder
+import hashlib
 from http.cookies import SimpleCookie
 import urllib.parse
 
@@ -28,9 +29,11 @@ def application(environ, start_response):
     if environ['PATH_INFO'] == '/login':
         environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() #ip
         post_input = urllib.parse.parse_qs(environ['wsgi.input'].readline().decode(), True)
+        m = hashlib.md5()
+        m.update(environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + post_input['username'][0] +
+                 post_input['password'][0])
         cookie = SimpleCookie()
-        cookie['login'] = hash(environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + post_input['username'][0] +
-                               post_input['password'][0])
+        cookie['login'] = m.hexdigest()
         start_response('200 OK', [('Content-Type', 'text/html'), ('Set-Cookie', cookie['login'].OutputString())])
         return "OK"
         #return get_client_ip(environ)
