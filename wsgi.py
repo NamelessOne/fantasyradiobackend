@@ -15,7 +15,7 @@ def application(environ, start_response):
     if environ['PATH_INFO'] == '/crash':
         crashreports.add(environ)
     if environ['PATH_INFO'] == '/table':
-        content = crashreports.build_table()
+        content = crashreports.build_reports_table()
         mapping = {'title': 'Welcome to my Website', 'content': content}
         start_response('200 OK', [('Content-Type', 'text/html')])
         return templates_builder.render('table.html', mapping)

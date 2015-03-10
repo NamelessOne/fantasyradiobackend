@@ -70,7 +70,7 @@ def add(environ):
     return response_body
 
 
-def build_table():
+def build_reports_table():
     try:
         conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
     except Exception as e:
@@ -79,21 +79,23 @@ def build_table():
     cur = conn.cursor()
     try:
         cur.execute('SELECT * FROM CrashReports')
-        rows = cur.fetchall()
-        #TODO в отдельную функцию
         field_names = [i[0] for i in cur.description]
-        result = "<table></tr>"
-        for name in field_names:
-            result += "<td>" + name + "</td>"
-        result += "</tr>"
-        for row in rows:
-            result += "<tr>"
-            for elem in row:
-                result += "<td>" + str(elem) + "</td>"
-            result += "</tr>"
-        result += "</table>"
+        rows = cur.fetchall()
+        result = __build_html_table(field_names, rows)
         #------------------------
         return result
     except Exception as e:
         return e
-    return ''
+
+def __build_html_table(column_names, rows):
+    result = "<table></tr>"
+    for name in column_names:
+        result += "<td>" + name + "</td>"
+    result += "</tr>"
+    for row in rows:
+        result += "<tr>"
+        for elem in row:
+            result += "<td>" + str(elem) + "</td>"
+        result += "</tr>"
+    result += "</table>"
+    return result
