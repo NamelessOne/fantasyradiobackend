@@ -25,9 +25,10 @@ def application(environ, start_response):
         return templates_builder.render('auth.html', 'text/html')
     if environ['PATH_INFO'] == '/login':
         #TODO залогиниваемся
-        environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip()
+        #environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip()
         start_response('200 OK', [('Content-Type', 'text/html')])
-        return get_client_ip(environ)
+        return environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip()
+        #return get_client_ip(environ)
     start_response('200 OK', [('Content-Type', 'text/html')])
     return ['''Hello %(subject)s
     #Hello %(subject)s!
