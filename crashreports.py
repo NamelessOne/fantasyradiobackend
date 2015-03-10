@@ -84,7 +84,7 @@ def build_table():
         for row in rows:
             result += "<tr>"
             for elem in row:
-                result += "<td>" + str(elem) + "</tr>"
+                result += "<td>" + str(elem) + "</td>"
             result += "</tr>"
         result += "</table>"
         return result
