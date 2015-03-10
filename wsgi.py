@@ -31,7 +31,7 @@ def application(environ, start_response):
         cookie = SimpleCookie()
         cookie['login'] = hash(environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + post_input['username'][0] +
                                post_input['password'][0])
-        start_response('200 OK', [('Content-Type', 'text/html')], ('Set-Cookie', cookie['login'].OutputString()))
+        start_response('200 OK', [('Content-Type', 'text/html'), ('Set-Cookie', cookie['login'].OutputString())])
         return "OK"
         #return get_client_ip(environ)
     start_response('200 OK', [('Content-Type', 'text/html')])
