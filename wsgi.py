@@ -62,5 +62,5 @@ def is_authorized(environ):
         cookie = SimpleCookie(environ['HTTP_COOKIE'])
         if 'login' in cookie:
             # handle the cookie value
-            return cookie['login'].value
+            return cookie['login'].value == '111'
     pass
