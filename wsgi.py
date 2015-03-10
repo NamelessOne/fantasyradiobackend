@@ -25,7 +25,7 @@ def application(environ, start_response):
             start_response('200 OK', [('Content-Type', 'text/html')])
             return templates_builder.render('table.html', mapping)
         else:
-            start_response('301 Redirect', [('Location', '/auth')])
+            start_response('301 Redirect', [('Location', 'http://fantasyradionotifications-sigil.rhcloud.com/auth')])
             return ''
     if environ['PATH_INFO'] == '/auth':
         start_response('200 OK', [('Content-Type', 'text/html')])
