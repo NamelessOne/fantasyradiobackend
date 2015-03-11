@@ -97,5 +97,5 @@ def __build_html_table(column_names, rows):
         result += "<tr>"
         for elem in row:
             result += "<td>" + str(elem) + "</td>"
-        result += "</tr>"
+        result += "<button type=\"button\">Delete</button></tr>"
     return result
