@@ -97,8 +97,7 @@ def delete_report_by_id(report_id):
     try:
         conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
         cur = conn.cursor()
-
-        raise Exception(cur.execute('DELETE FROM CrashReports WHERE REPORT_ID=%s', report_id))
+        cur.execute('DELETE FROM CrashReports WHERE REPORT_ID=\'%s\'', report_id)
         return
     except Exception:
         return
