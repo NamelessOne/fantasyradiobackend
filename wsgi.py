@@ -41,7 +41,17 @@ def application(environ, start_response):
         cookie['login'] = m.hexdigest()
         start_response('200 OK', [('Content-Type', 'text/html'), ('Set-Cookie', cookie['login'].OutputString())])
         return "OK"
-        #return get_client_ip(environ)
+    if environ['PATH_INFO'] == '/delete':
+        if is_authorized(environ):
+            #TODO сносим
+            crashreports.delete_report_by_id("")
+            content = crashreports.build_reports_table()
+            mapping = {'title': 'Welcome to my Website', 'content': content}
+            start_response('200 OK', [('Content-Type', 'text/html')])
+            return templates_builder.render('table.html', mapping)
+        else:
+            start_response('200 OK', [('Content-Type', 'text/html')])
+            return templates_builder.render('auth.html', 'text/html')
     start_response('200 OK', [('Content-Type', 'text/html')])
     return ['''Hello %(subject)s
     #Hello %(subject)s!

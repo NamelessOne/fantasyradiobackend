@@ -93,6 +93,10 @@ def build_reports_table():
         return e
 
 
+def delete_report_by_id(report_id):
+    pass
+
+
 def __build_html_table(column_names, rows):
     result = "<tr>"
     for name in column_names:
