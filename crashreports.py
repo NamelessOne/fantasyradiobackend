@@ -82,8 +82,7 @@ def build_reports_table():
         field_names = [i[0] for i in cur.description]
         field_names.append("action")
         rows = cur.fetchall()
-
-        rows = [(elem + ("<button type=\"button\" name=\"" + elem[0] + "\">Delete</button>", )) for elem in rows]
+        rows = [(elem + ("<a href=\"/delete?id=" + elem[0] + "\">Delete</a>", )) for elem in rows]
         result = __build_html_table(field_names, rows)
         #------------------------
         return result
@@ -92,7 +91,7 @@ def build_reports_table():
 
 
 def __build_html_table(column_names, rows):
-    result = "</tr>"
+    result = "<tr>"
     for name in column_names:
         result += "<td>" + name + "</td>"
     result += "</tr>"
