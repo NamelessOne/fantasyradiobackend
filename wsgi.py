@@ -60,6 +60,7 @@ if __name__ == '__main__':
 
 
 def is_authorized(environ):
+    raise Exception("1111")
     if 'HTTP_COOKIE' in environ:
         cookie = SimpleCookie(environ['HTTP_COOKIE'])
         if 'login' in cookie:
