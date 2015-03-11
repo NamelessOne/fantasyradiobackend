@@ -7,6 +7,7 @@ import templates_builder
 import hashlib
 from http.cookies import SimpleCookie
 import urllib.parse
+import consts
 
 sys.path.append(os.path.dirname(__file__))
 
@@ -64,7 +65,7 @@ def is_authorized(environ):
         if 'login' in cookie:
             # handle the cookie value
             m = hashlib.md5()
-            m.update((environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + 'NamelessOne' +
-                      'luxextenebris').encode('utf-8'))
+            m.update((environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + consts.ADMIN_USER +
+                      consts.ADMIN_PASSWORD).encode('utf-8'))
             return cookie['login'].value == m.hexdigest()
     pass
