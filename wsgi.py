@@ -26,9 +26,8 @@ def application(environ, start_response):
             start_response('200 OK', [('Content-Type', 'text/html')])
             return templates_builder.render('table.html', mapping)
         else:
-            #start_response('200 OK', [('Content-Type', 'text/html')])
-            start_response('301 Redirect', [('Location', '/auth')])
-            return ''
+            start_response('200 OK', [('Content-Type', 'text/html')])
+            return templates_builder.render('auth.html', 'text/html')
     if environ['PATH_INFO'] == '/auth':
         start_response('200 OK', [('Content-Type', 'text/html')])
         return templates_builder.render('auth.html', 'text/html')
