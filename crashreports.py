@@ -89,7 +89,7 @@ def build_reports_table():
 
 
 def __build_html_table(column_names, rows):
-    result = "<table></tr>"
+    result = "</tr>"
     for name in column_names:
         result += "<td>" + name + "</td>"
     result += "</tr>"
@@ -98,5 +98,4 @@ def __build_html_table(column_names, rows):
         for elem in row:
             result += "<td>" + str(elem) + "</td>"
         result += "</tr>"
-    result += "</table>"
     return result
