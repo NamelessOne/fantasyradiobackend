@@ -23,6 +23,9 @@ def add(environ):
         response_body += s
         return response_body
     cur = conn.cursor()
+    if len(report.report_id) == 0:
+        response_body += "empty report"
+        return response_body
     try:
         cur.execute("INSERT INTO CrashReports(REPORT_ID, APP_VERSION_CODE, APP_VERSION_NAME, PACKAGE_NAME, FILE_PATH, "
                     "PHONE_MODEL, BRAND, PRODUCT, ANDROID_VERSION, BUILD, TOTAL_MEM_SIZE, AVAILABLE_MEM_SIZE, "
