@@ -45,7 +45,8 @@ def application(environ, start_response):
     if environ['PATH_INFO'] == '/delete':
         if is_authorized(environ):
             parameters = cgi.parse_qs(environ.get('QUERY_STRING', ''))
-            crashreports.delete_report_by_id(parameters.getvalue('id', ""))
+            if 'id' in parameters:
+                crashreports.delete_report_by_id(cgi.escape(parameters['id'][0]))
             content = crashreports.build_reports_table()
             mapping = {'title': 'Welcome to my Website', 'content': content}
             start_response('200 OK', [('Content-Type', 'text/html')])
