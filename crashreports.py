@@ -80,7 +80,10 @@ def build_reports_table():
     try:
         cur.execute('SELECT * FROM CrashReports')
         field_names = [i[0] for i in cur.description]
+        field_names.append("action")
         rows = cur.fetchall()
+        for row in rows:
+            row.append("<button type=\"button\">Delete</button>")
         result = __build_html_table(field_names, rows)
         #------------------------
         return result
@@ -97,5 +100,5 @@ def __build_html_table(column_names, rows):
         result += "<tr>"
         for elem in row:
             result += "<td>" + str(elem) + "</td>"
-        result += "<td><button type=\"button\">Delete</button></td></tr>"
+        result += "</tr>"
     return result
