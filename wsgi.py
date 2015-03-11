@@ -8,6 +8,7 @@ import hashlib
 from http.cookies import SimpleCookie
 import urllib.parse
 import consts
+import cgi
 
 sys.path.append(os.path.dirname(__file__))
 
@@ -36,15 +37,15 @@ def application(environ, start_response):
         post_input = urllib.parse.parse_qs(environ['wsgi.input'].readline().decode(), True)
         m = hashlib.md5()
         m.update((environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + post_input['username'][0] +
-                 post_input['password'][0]).encode('utf-8'))
+                  post_input['password'][0]).encode('utf-8'))
         cookie = SimpleCookie()
         cookie['login'] = m.hexdigest()
         start_response('200 OK', [('Content-Type', 'text/html'), ('Set-Cookie', cookie['login'].OutputString())])
         return "OK"
     if environ['PATH_INFO'] == '/delete':
         if is_authorized(environ):
-            #TODO сносим
-            crashreports.delete_report_by_id("")
+            parameters = cgi.parse_qs(environ.get('QUERY_STRING', ''))
+            crashreports.delete_report_by_id(parameters.getvalue('id', ""))
             content = crashreports.build_reports_table()
             mapping = {'title': 'Welcome to my Website', 'content': content}
             start_response('200 OK', [('Content-Type', 'text/html')])
