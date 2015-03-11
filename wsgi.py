@@ -67,5 +67,8 @@ def is_authorized(environ):
             m = hashlib.md5()
             m.update((environ['HTTP_X_FORWARDED_FOR'].split(',')[-1].strip() + consts.ADMIN_USER +
                       consts.ADMIN_PASSWORD).encode('utf-8'))
+            hex = m.hexdigest()
+            if cookie['login'].value != hex:
+                raise Exception(cookie['login'].value + " " + hex)
             return cookie['login'].value == m.hexdigest()
     pass
