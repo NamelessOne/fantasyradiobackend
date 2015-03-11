@@ -82,9 +82,9 @@ def build_reports_table():
         field_names = [i[0] for i in cur.description]
         field_names.append("action")
         rows = cur.fetchall()
-        rows = [tuple(list(row).append("<button type=\"button\">Delete</button>")) for row in rows]
-        #for row in rows:
-        #    row = row + ("<button type=\"button\">Delete</button>", )
+        rows = list(rows)
+        for row in rows:
+            row.append("<button type=\"button\">Delete</button>")
         result = __build_html_table(field_names, rows)
         #------------------------
         return result
