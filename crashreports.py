@@ -94,6 +94,7 @@ def build_reports_table():
 
 
 def delete_report_by_id(report_id):
+    raise Exception
     try:
         conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
     except Exception:
