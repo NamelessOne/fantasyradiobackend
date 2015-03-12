@@ -115,5 +115,3 @@ def __build_html_table(column_names, rows):
             result += "<td>" + str(elem) + "</td>"
         result += "</tr>"
     return result
-
-
