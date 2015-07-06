@@ -1,1 +1,1 @@
-python $OPENSHIFT_REPO_DIR/calendar.pys
+python $OPENSHIFT_REPO_DIR/schedule_calendar.pys
