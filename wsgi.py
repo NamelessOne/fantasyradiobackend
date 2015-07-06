@@ -1,23 +1,25 @@
 #!/usr/bin/env python
 import os
 import sys
-import schedule
-import crashreports
-import templates_builder
 import hashlib
 from http.cookies import SimpleCookie
 import urllib.parse
-import consts
 import cgi
+
+import crashreports
+import templates_builder
+import consts
 
 sys.path.append(os.path.dirname(__file__))
 
 
 def application(environ, start_response):
+    '''
     if environ['PATH_INFO'] == '/add':
         schedule.add(environ)
     if environ['PATH_INFO'] == '/remove':
         schedule.remove(environ)
+    '''
     if environ['PATH_INFO'] == '/crash':
         crashreports.add(environ)
     if environ['PATH_INFO'] == '/table':
