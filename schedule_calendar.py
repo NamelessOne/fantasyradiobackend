@@ -5,6 +5,8 @@ import urllib.request
 import datetime
 import json
 import html.parser
+import pymysql
+import consts
 
 
 class ScheduleCalendarEntity:
@@ -14,6 +16,14 @@ class ScheduleCalendarEntity:
         self.start = start
         self.end = end
         self.img = img
+
+    def get_mysql_end_time(self):
+        res = str(self.end).replace('T', ' ')
+        return res[:res.index('+')]
+
+    def get_mysql_start_time(self):
+        res = str(self.start).replace('T', ' ')
+        return res[:res.index('+')]
 
 
 class ImageAndTextParser(html.parser.HTMLParser):
@@ -30,7 +40,6 @@ class ImageAndTextParser(html.parser.HTMLParser):
             self.img = attributes['src']
         if tag == 'td':
             self.count += 1
-            # print(self.count)
             self.td = True
 
     def handle_endtag(self, tag):
@@ -43,26 +52,46 @@ class ImageAndTextParser(html.parser.HTMLParser):
         if self.td:
             if self.count == 1:
                 self.text = data
-                print(data.encode())
+        pass
+
+
+def add_to_db(schedule_items):
+    if len(schedule_items) == 0:
+        return
+    else:
+        try:
+            conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
+            cur = conn.cursor()
+            cur.execute('DELETE FROM CalendarEvents')
+            for i in range(0, len(schedule_items)):
+                cur.execute("INSERT INTO CalendarEvents(summary, description, start, end, img) VALUES "
+                            "(%s, %s, %s, %s, %s)", (schedule_items[i].summary, schedule_items[i].description,
+                                                     schedule_items[i].get_mysql_start_time,
+                                                     schedule_items[i].get_mysql_end_time, schedule_items[i].img))
+
+            conn.commit()
+        finally:
+            cur.close()
+            conn.close()
         pass
 
 # ---MAIN---
-start = datetime.datetime.now()
-end = start + datetime.timedelta(days=3)
-response = urllib.request.urlopen("https://www.googleapis.com/calendar/v3/calendars/fantasyradioru@gmail.com/events?"
-                                  "key=AIzaSyDam413Hzm4l8GOEEg-NF8w8wdAbUsKEjM&maxResults=50&singleEvents=true&"
-                                  "orderBy=startTime&timeMin=" + start.strftime('%Y-%m-%dT') + '00:00:00.000Z&timeMax='
-                                  + end.strftime('%Y-%m-%dT') + '00:00:00.000Z')
+start_time = datetime.datetime.now()
+end_time = start_time + datetime.timedelta(days=3)
+response = urllib.request.urlopen(consts.CALENDAR_URL + '&timeMin=' + start_time.strftime('%Y-%m-%dT') +
+                                  '00:00:00.000Z&timeMax='
+                                  + end_time.strftime('%Y-%m-%dT') + '00:00:00.000Z')
 s = str(response.read().decode('utf-8'))
 jsobj = json.loads(s)
 items = jsobj['items']
+schedule_list = []
 for i in range(0, len(items)):
     parser = ImageAndTextParser()
-    raw_html = items[i]['description'].replace('?????????', '')
+    raw_html = items[i]['description'].replace('ПОДРОБНЕЕ', '')
     parser.feed(raw_html)
-    # print(parser.text.encode())
-    description = parser.text
-    if description == '':
-        description = raw_html
-    ScheduleCalendarEntity(items[i]['summary'], description, items[i]['start']['dateTime'],
-                           items[i]['end']['dateTime'], parser.img)
+    text = parser.text
+    if text == '':
+        text = raw_html
+    schedule_list.append(ScheduleCalendarEntity(items[i]['summary'], text, items[i]['start']['dateTime'],
+                                                items[i]['end']['dateTime'], parser.img))
+# add_to_db(schedule_list)

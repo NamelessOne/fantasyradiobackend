@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/CrashReport.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/schedule_calendar.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/setup.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/templates_builder.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/wsgi.py" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
 </project>
-
