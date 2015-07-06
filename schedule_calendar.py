@@ -13,7 +13,6 @@ response = urllib.request.urlopen("https://www.googleapis.com/calendar/v3/calend
                                  + end.strftime('%Y-%m-%dT') + '00:00:00.000Z')
 s = str(response.read().decode('utf-8'))
 jsobj = json.loads(s)
-print(jsobj)
 #for i in range(0, len(s)):
 #    print(s[i])
 #print(s)
