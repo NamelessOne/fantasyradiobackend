@@ -17,24 +17,33 @@ class ScheduleCalendarEntity:
 
 
 class ImageAndTextParser(html.parser.HTMLParser):
-    # TODO ???????? ?????????
     def __init__(self):
         html.parser.HTMLParser.__init__(self)
         self.img = ""
         self.text = ""
+        self.td = False
+        self.count = 0
 
     def handle_starttag(self, tag, attributes):
         if tag == 'img':
             attributes = dict(attributes)
             self.img = attributes['src']
         if tag == 'td':
-            if len(attributes) > 0:
-                self.text += attributes[len(attributes) - 1]
+            self.count += 1
+            # print(self.count)
+            self.td = True
 
     def handle_endtag(self, tag):
+        if tag == 'td':
+            self.count = 0
+            self.td = False
         pass
 
     def handle_data(self, data):
+        if self.td:
+            if self.count == 1:
+                self.text = data
+                print(data.encode())
         pass
 
 # ---MAIN---
@@ -51,6 +60,7 @@ for i in range(0, len(items)):
     parser = ImageAndTextParser()
     raw_html = items[i]['description'].replace('?????????', '')
     parser.feed(raw_html)
+    # print(parser.text.encode())
     description = parser.text
     if description == '':
         description = raw_html
