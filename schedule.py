@@ -2,13 +2,23 @@
 import pymysql
 import consts
 import json
+import sys
+
+if sys.version < '3':
+    import codecs
+
+    def u(x):
+        return codecs.unicode_escape_decode(x)[0]
+else:
+    def u(x):
+        return x
 
 
 def get_schedule():
     objects_list = []
     rows = _get_db_entities()
     for row in rows:
-        d = {'summary': row['summary'], 'description': row['description'], 'start': row['start'].isoformat(),
+        d = {'summary': u(row['summary']), 'description': u(row['description']), 'start': row['start'].isoformat(),
              'end': row['end'].isoformat(), 'img': row['img']}
         objects_list.append(d)
     return json.dumps(objects_list)
