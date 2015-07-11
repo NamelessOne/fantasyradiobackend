@@ -72,7 +72,7 @@ def application(environ, start_response):
     start_response('200 OK', [('Content-Type', 'text/html')])
     return [('''Привет %(subject)s
     #Hello %(subject)s!
-    ''' % {'subject': '111'}).encode().decode('iso-8859-1')]
+    ''' % {'subject': '111'}).encode('utf-8')]
 
 #
 # Below for testing only
