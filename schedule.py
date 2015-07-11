@@ -11,7 +11,7 @@ def get_schedule():
              'end': row['end'].isoformat(), 'img': row['img']}
 
         objects_list.append(d)
-    print(json.loads(json.dumps(objects_list)))
+    print(json.loads(json.dumps(objects_list)).replace('\'', '\"'))
     return json.dumps(objects_list)
 
 
