@@ -65,7 +65,6 @@ def add_to_db(schedule_items):
     else:
         try:
             conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
-            conn.set_character_set('utf8')
             cur = conn.cursor()
             cur.execute('SET NAMES utf8;')
             cur.execute('SET CHARACTER SET utf8;')
