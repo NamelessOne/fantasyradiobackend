@@ -1,6 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import os
-import sys
 import hashlib
 from http.cookies import SimpleCookie
 import urllib.parse
@@ -32,7 +32,7 @@ def application(environ, start_response):
     '''
     if environ['PATH_INFO'] == '/schedule':
         start_response('200 OK', [('Content-Type', 'application/json; charset=UTF-8')])
-        return str(schedule.get_schedule())
+        return schedule.get_schedule()
     if environ['PATH_INFO'] == '/crash':
         crashreports.add(environ)
     if environ['PATH_INFO'] == '/table':

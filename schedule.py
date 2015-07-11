@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pymysql
 import consts
 import json
@@ -10,7 +11,7 @@ def get_schedule():
         d = {'summary': row['summary'], 'description': row['description'], 'start': row['start'].isoformat(),
              'end': row['end'].isoformat(), 'img': row['img']}
         objects_list.append(d)
-    return json.dumps(objects_list, ensure_ascii=False, indent=4)
+    return json.dumps(objects_list)
 
 
 def _get_db_entities():
