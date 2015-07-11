@@ -20,7 +20,7 @@ def get_schedule():
     for row in rows:
         d = {'summary': row['summary'], 'description': row['description'], 'start': row['start'].isoformat(),
              'end': row['end'].isoformat(), 'img': row['img']}
-        objects_list.append(d)
+    print(json.dumps(objects_list, ensure_ascii=False))
     return json.dumps(objects_list, ensure_ascii=False)
 
 
