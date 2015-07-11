@@ -22,7 +22,7 @@ def get_schedule():
              'end': row['end'].isoformat(), 'img': row['img']}
         objects_list.append(d)
     print(json.dumps(objects_list, ensure_ascii=False))
-    return repr(json.dumps(objects_list, ensure_ascii=False)).encode('utf-8')
+    return repr(json.dumps(objects_list, ensure_ascii=False)).encode('utf-8').decode()
 
 
 def _get_db_entities():
