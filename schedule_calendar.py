@@ -25,6 +25,10 @@ class ScheduleCalendarEntity:
         res = str(self.start).replace('T', ' ')
         return res[:res.index('+')]
 
+    def __str__(self):
+        return 'summary = ' + self.summary + ' description = ' + self.description + ' start = ' + self.start \
+               + ' end = ' + self.end + ' img = ' + self.img
+
 
 class ImageAndTextParser(html.parser.HTMLParser):
     def __init__(self):
@@ -50,7 +54,7 @@ class ImageAndTextParser(html.parser.HTMLParser):
 
     def handle_data(self, data):
         if self.td:
-            if self.count == 1:
+            if len(data.strip()) > 0:
                 self.text = data
         pass
 
@@ -63,11 +67,11 @@ def add_to_db(schedule_items):
             conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
             cur = conn.cursor()
             cur.execute('DELETE FROM CalendarEvents')
-            for i in range(0, len(schedule_items)):
+            for j in range(0, len(schedule_items)):
                 cur.execute("INSERT INTO CalendarEvents(summary, description, start, end, img) VALUES "
-                            "(%s, %s, %s, %s, %s)", (schedule_items[i].summary, schedule_items[i].description,
-                                                     schedule_items[i].get_mysql_start_time,
-                                                     schedule_items[i].get_mysql_end_time, schedule_items[i].img))
+                            "(%s, %s, %s, %s, %s)", (schedule_items[j].summary, schedule_items[j].description,
+                                                     schedule_items[j].get_mysql_start_time,
+                                                     schedule_items[j].get_mysql_end_time, schedule_items[j].img))
 
             conn.commit()
         finally:
@@ -82,8 +86,8 @@ response = urllib.request.urlopen(consts.CALENDAR_URL + '&timeMin=' + start_time
                                   '00:00:00.000Z&timeMax='
                                   + end_time.strftime('%Y-%m-%dT') + '00:00:00.000Z')
 s = str(response.read().decode('utf-8'))
-jsobj = json.loads(s)
-items = jsobj['items']
+json_obj = json.loads(s)
+items = json_obj['items']
 schedule_list = []
 for i in range(0, len(items)):
     parser = ImageAndTextParser()
@@ -94,4 +98,4 @@ for i in range(0, len(items)):
         text = raw_html
     schedule_list.append(ScheduleCalendarEntity(items[i]['summary'], text, items[i]['start']['dateTime'],
                                                 items[i]['end']['dateTime'], parser.img))
-# add_to_db(schedule_list)
+add_to_db(schedule_list)
