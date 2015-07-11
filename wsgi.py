@@ -22,7 +22,7 @@ def application(environ, start_response):
         schedule.remove(environ)
     '''
     if environ['PATH_INFO'] == '/schedule':
-        start_response('200 OK', [('Content-Type', 'text/json')])
+        start_response('200 OK', [('Content-Type', 'application/json')])
         return schedule.get_schedule()
     if environ['PATH_INFO'] == '/crash':
         crashreports.add(environ)
