@@ -18,9 +18,10 @@ def get_schedule():
     objects_list = []
     rows = _get_db_entities()
     for row in rows:
-        d = {'summary': u(row['summary']), 'description': u(row['description']), 'start': row['start'].isoformat(),
+        d = {'summary': row['summary'], 'description': row['description'], 'start': row['start'].isoformat(),
              'end': row['end'].isoformat(), 'img': row['img']}
         objects_list.append(d)
+    print(str(objects_list))
     return json.dumps(objects_list)
 
 
