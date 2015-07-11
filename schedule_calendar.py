@@ -84,7 +84,7 @@ def add_to_db(schedule_items):
         pass
 
 # ---MAIN---
-start_time = datetime.datetime.now()
+start_time = datetime.datetime.now() - datetime.timedelta(hours=-4)
 end_time = start_time + datetime.timedelta(days=3)
 response = urllib.request.urlopen(consts.CALENDAR_URL + '&timeMin=' + start_time.strftime('%Y-%m-%dT') +
                                   '00:00:00.000Z&timeMax='
@@ -102,6 +102,6 @@ for i in range(0, len(items)):
         text = raw_html
     schedule_list.append(ScheduleCalendarEntity(items[i]['summary'], text, items[i]['start']['dateTime'],
                                                 items[i]['end']['dateTime'], parser.img))
-#for entity in schedule_list:
+# for entity in schedule_list:
 #    print(entity.get_mysql_start_time())
 add_to_db(schedule_list)
