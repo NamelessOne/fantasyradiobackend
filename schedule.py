@@ -18,11 +18,10 @@ def get_schedule():
     objects_list = []
     rows = _get_db_entities()
     for row in rows:
-        d = {'summary': row['summary'].encode('utf-8').decode('iso-8859-1'),
-             'description': row['description'].encode('utf-8').decode('iso-8859-1'), 'start': row['start'].isoformat(),
+        d = {'summary': row['summary'], 'description': row['description'], 'start': row['start'].isoformat(),
              'end': row['end'].isoformat(), 'img': row['img']}
         objects_list.append(d)
-    return repr(json.dumps(objects_list, ensure_ascii=False))
+    return repr(json.dumps(objects_list, ensure_ascii=False)).encode('utf-8').decode('iso-8859-1')
 
 
 def _get_db_entities():
