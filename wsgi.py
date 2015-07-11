@@ -32,7 +32,7 @@ def application(environ, start_response):
     '''
     if environ['PATH_INFO'] == '/schedule':
         start_response('200 OK', [('Content-Type', 'application/json; charset=UTF-8')])
-        return schedule.get_schedule().encode()
+        return schedule.get_schedule()
     if environ['PATH_INFO'] == '/crash':
         crashreports.add(environ)
     if environ['PATH_INFO'] == '/table':
@@ -70,9 +70,9 @@ def application(environ, start_response):
             start_response('200 OK', [('Content-Type', 'text/html')])
             return templates_builder.render('auth.html', 'text/html')
     start_response('200 OK', [('Content-Type', 'text/html')])
-    return [('''Привет %(subject)s
+    return ['''Привет %(subject)s
     #Hello %(subject)s!
-    ''' % {'subject': '111'})]
+    ''' % {'subject': '111'}]
 
 #
 # Below for testing only
