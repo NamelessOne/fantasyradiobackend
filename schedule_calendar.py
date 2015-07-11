@@ -70,8 +70,8 @@ def add_to_db(schedule_items):
             for j in range(0, len(schedule_items)):
                 cur.execute("INSERT INTO CalendarEvents(summary, description, start, end, img) VALUES "
                             "(%s, %s, %s, %s, %s)", (schedule_items[j].summary, schedule_items[j].description,
-                                                     schedule_items[j].get_mysql_start_time,
-                                                     schedule_items[j].get_mysql_end_time, schedule_items[j].img))
+                                                     schedule_items[j].get_mysql_start_time(),
+                                                     schedule_items[j].get_mysql_end_time(), schedule_items[j].img))
 
             conn.commit()
         finally:
@@ -98,4 +98,6 @@ for i in range(0, len(items)):
         text = raw_html
     schedule_list.append(ScheduleCalendarEntity(items[i]['summary'], text, items[i]['start']['dateTime'],
                                                 items[i]['end']['dateTime'], parser.img))
+#for entity in schedule_list:
+#    print(entity.get_mysql_start_time())
 add_to_db(schedule_list)
