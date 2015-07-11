@@ -17,7 +17,7 @@ def _get_db_entities():
         conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB,
                                use_unicode=True, charset='utf8')
         cur = conn.cursor()
-        cur.execute('SELECT * FROM CrashReports')
+        cur.execute('SELECT summary, description, start, end, img FROM CrashReports')
         rows = cur.fetchall()
         # ------------------------
         return rows
