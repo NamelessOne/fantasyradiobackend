@@ -11,7 +11,7 @@ def get_schedule():
              'end': row['end'].isoformat(), 'img': row['img']}
 
         objects_list.append(d)
-    return json.dumps(objects_list, ensure_ascii=False)
+    return json.dumps(objects_list)
 
 
 def _get_db_entities():
