@@ -10,6 +10,15 @@ import crashreports
 import templates_builder
 import consts
 import schedule
+import sys
+if sys.version < '3':
+    import codecs
+
+    def u(x):
+        return codecs.unicode_escape_decode(x)[0]
+else:
+    def u(x):
+        return x
 
 sys.path.append(os.path.dirname(__file__))
 
@@ -23,7 +32,7 @@ def application(environ, start_response):
     '''
     if environ['PATH_INFO'] == '/schedule':
         start_response('200 OK', [('Content-Type', 'application/json; charset=UTF-8')])
-        return schedule.get_schedule()
+        return u(schedule.get_schedule())
     if environ['PATH_INFO'] == '/crash':
         crashreports.add(environ)
     if environ['PATH_INFO'] == '/table':
