@@ -10,7 +10,7 @@ def get_schedule():
              'end': row['end'].isoformat(), 'img': row['img']}
 
         objects_list.append(d)
-    return objects_list
+    return str(objects_list)
 
 
 def _get_db_entities():
