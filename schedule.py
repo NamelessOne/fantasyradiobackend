@@ -21,7 +21,7 @@ def get_schedule():
         d = {'summary': row['summary'], 'description': row['description'], 'start': row['start'].isoformat(),
              'end': row['end'].isoformat(), 'img': row['img']}
         objects_list.append(d)
-    return repr(json.dumps(objects_list, ensure_ascii=False)).encode('utf-8').decode('iso-8859-1')
+    return json.dumps(objects_list, ensure_ascii=False).encode('utf-8').decode('iso-8859-1')
 
 
 def _get_db_entities():
