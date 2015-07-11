@@ -78,6 +78,8 @@ def add_to_db(schedule_items):
                                                      schedule_items[j].get_mysql_end_time(), schedule_items[j].img))
 
             conn.commit()
+        except Exception as e:
+            print(e)
         finally:
             cur.close()
             conn.close()
