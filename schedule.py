@@ -1,4 +1,3 @@
-import json
 import pymysql
 import consts
 
@@ -11,7 +10,7 @@ def get_schedule():
              'end': row['end'].isoformat(), 'img': row['img']}
 
         objects_list.append(d)
-    return str(objects_list).replace('\'', '\"')
+    return objects_list
 
 
 def _get_db_entities():
