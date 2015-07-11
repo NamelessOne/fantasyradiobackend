@@ -64,21 +64,20 @@ def add_to_db(schedule_items):
         return
     else:
         try:
-            conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
+            conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB,
+                                   use_unicode=True, charset='utf8')
             cur = conn.cursor()
             cur.execute('SET NAMES utf8;')
             cur.execute('SET CHARACTER SET utf8;')
             cur.execute('SET character_set_connection=utf8;')
-            cur.execute('DELETE FROM CalendarEvents')
+            cur.execute('DELETE FROM CalendarEvents;')
             for j in range(0, len(schedule_items)):
                 cur.execute("INSERT INTO CalendarEvents(summary, description, start, end, img) VALUES "
-                            "(%s, %s, %s, %s, %s)", (schedule_items[j].summary, schedule_items[j].description,
-                                                     schedule_items[j].get_mysql_start_time(),
-                                                     schedule_items[j].get_mysql_end_time(), schedule_items[j].img))
+                            "(%s, %s, %s, %s, %s);", (schedule_items[j].summary, schedule_items[j].description,
+                                                      schedule_items[j].get_mysql_start_time(),
+                                                      schedule_items[j].get_mysql_end_time(), schedule_items[j].img))
 
             conn.commit()
-        except Exception as e:
-            print(e)
         finally:
             cur.close()
             conn.close()
