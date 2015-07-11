@@ -70,7 +70,7 @@ def application(environ, start_response):
             start_response('200 OK', [('Content-Type', 'text/html')])
             return templates_builder.render('auth.html', 'text/html')
     start_response('200 OK', [('Content-Type', 'text/html')])
-    return ['''Hello %(subject)s
+    return ['''Привет %(subject)s
     #Hello %(subject)s!
     ''' % {'subject': '111'}]
 
