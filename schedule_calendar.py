@@ -89,6 +89,7 @@ end_time = start_time + datetime.timedelta(days=3)
 response = urllib.request.urlopen(consts.CALENDAR_URL + '&timeMin=' + start_time.strftime('%Y-%m-%dT') +
                                   '00:00:00.000Z&timeMax='
                                   + end_time.strftime('%Y-%m-%dT') + '00:00:00.000Z')
+print('timeMax =' + end_time.strftime('%Y-%m-%dT') + '00:00:00.000Z')
 s = str(response.read().decode('utf-8'))
 json_obj = json.loads(s)
 items = json_obj['items']
