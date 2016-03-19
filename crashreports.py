@@ -49,7 +49,8 @@ def add(environ):
                                                                         report.logcat, report.installation_id,
                                                                         report.device_features, report.environment,
                                                                         report.shared_preferences,
-                                                                        report.settings_system, report.settings_secure))
+                                                                        report.settings_system, ""))
+                                                                    #report.settings_system, report.settings_secure))
     except pymysql.DataError as e:
         #Ошибки MySQL всегда четырехразрядные, помни об этом!!!
         s = str(e.args[0])
