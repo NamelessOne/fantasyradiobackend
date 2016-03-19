@@ -57,7 +57,9 @@ def add(environ):
         response_body += "-" + s[1] + s[2] + s[3] + s[4]
         return response_body
     except pymysql.IntegrityError as e:
-        raise e
+        s = str(e.args[0])
+        response_body += "-" + s[1] + s[2] + s[3] + s[4]
+        return response_body
     except pymysql.ProgrammingError as e:
         s = str(e.args[0])
         response_body += "-" + s[1] + s[2] + s[3] + s[4]
