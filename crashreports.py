@@ -33,24 +33,23 @@ def add(environ):
                     "USER_COMMENT, USER_EMAIL, USER_APP_START_DATE, USER_CRASH_DATE, DUMPSYS_MEMINFO, LOGCAT, "
                     "INSTALLATION_ID, DEVICE_FEATURES, ENVIRONMENT, SHARED_PREFERENCES, SETTINGS_SYSTEM, "
                     "SETTINGS_SECURE) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
-                    "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (report.report_id, report.app_version_code,
-                                                                        report.app_version_name, report.package_name,
-                                                                        report.file_path, report.phone_model,
-                                                                        report.brand,
-                                                                        report.product, report.android_version,
-                                                                        report.build, report.total_mem_size,
-                                                                        report.available_mem_size, report.custom_data,
-                                                                        report.is_silent, report.stack_trace,
-                                                                        report.initial_configuration,
-                                                                        report.crash_configuration, report.display,
-                                                                        report.user_comment,
-                                                                        report.user_email, report.user_app_start_date,
-                                                                        report.user_crash_date, report.dumpsys_meminfo,
-                                                                        report.logcat, report.installation_id,
-                                                                        report.device_features, report.environment,
-                                                                        report.shared_preferences,
-                                                                        "", ""))
-                                                                    #report.settings_system, report.settings_secure))
+                    "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (report.report_id.encode('utf-8'), report.app_version_code.encode('utf-8'),
+                                                                        report.app_version_name.encode('utf-8'), report.package_name.encode('utf-8'),
+                                                                        report.file_path.encode('utf-8'), report.phone_model.encode('utf-8'),
+                                                                        report.brand.encode('utf-8'),
+                                                                        report.product.encode('utf-8'), report.android_version.encode('utf-8'),
+                                                                        report.build.encode('utf-8'), report.total_mem_size.encode('utf-8'),
+                                                                        report.available_mem_size.encode('utf-8'), report.custom_data.encode('utf-8'),
+                                                                        report.is_silent.encode('utf-8'), report.stack_trace.encode('utf-8'),
+                                                                        report.initial_configuration.encode('utf-8'),
+                                                                        report.crash_configuration.encode('utf-8'), report.display.encode('utf-8'),
+                                                                        report.user_comment.encode('utf-8'),
+                                                                        report.user_email.encode('utf-8'), report.user_app_start_date.encode('utf-8'),
+                                                                        report.user_crash_date.encode('utf-8'), report.dumpsys_meminfo.encode('utf-8'),
+                                                                        report.logcat.encode('utf-8'), report.installation_id.encode('utf-8'),
+                                                                        report.device_features.encode('utf-8'), report.environment.encode('utf-8'),
+                                                                        report.shared_preferences.encode('utf-8'),
+                                                                        report.settings_system.encode('utf-8'), report.settings_secure.encode('utf-8')))
     except pymysql.DataError as e:
         #Ошибки MySQL всегда четырехразрядные, помни об этом!!!
         s = str(e.args[0])
