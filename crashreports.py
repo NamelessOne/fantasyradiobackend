@@ -87,9 +87,10 @@ def build_reports_table(params=None):
         where = ''
         if len(params) != 0:
             where = ' WHERE '
-            for key, value in params.items():
+            for i, key, value in params.items():
                 where += key + ' LIKE \'%' + value[0] + '%\''
-            pass
+                if i != len(params) - 1:
+                    where += ' AND '
         cur.execute('SELECT * FROM CrashReports' + where)
         field_names = [i[0] for i in cur.description]
         field_names.append("action")
