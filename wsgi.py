@@ -37,7 +37,7 @@ def application(environ, start_response):
         crashreports.add(environ)
     if environ['PATH_INFO'] == '/table':
         if is_authorized(environ):
-            content = crashreports.build_reports_table()
+            content = crashreports.build_reports_table(cgi.parse_qs(environ.get('QUERY_STRING', '')))
             mapping = {'title': 'Welcome to my Website', 'content': content}
             start_response('200 OK', [('Content-Type', 'text/html')])
             return templates_builder.render('table.html', mapping)

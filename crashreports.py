@@ -74,7 +74,9 @@ def add(environ):
     return response_body
 
 
-def build_reports_table():
+def build_reports_table(params=None):
+    if params is None:
+        params = {}
     try:
         conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB)
     except Exception as e:
@@ -82,13 +84,18 @@ def build_reports_table():
         return s
     cur = conn.cursor()
     try:
-        cur.execute('SELECT * FROM CrashReports')
+        where = ''
+        if len(params) != 0:
+            where = ' WHERE '
+            for key, value in params.items():
+                where += key + ' LIKE \'%' + value + '%\''
+            pass
+        cur.execute('SELECT * FROM CrashReports' + where)
         field_names = [i[0] for i in cur.description]
         field_names.append("action")
         rows = cur.fetchall()
-        rows = [(elem + ("<a href=\"/delete?id=" + elem[0] + "\">Delete</a>", )) for elem in rows]
+        rows = [(elem + ("<a href=\"/delete?id=" + elem[0] + "\">Delete</a>",)) for elem in rows]
         result = __build_html_table(field_names, rows)
-        # ------------------------
         return result
     except Exception as e:
         return e
@@ -101,8 +108,8 @@ def delete_report_by_id(report_id):
         cur.execute('DELETE FROM CrashReports WHERE REPORT_ID = %s', (report_id,))
         conn.commit()
     finally:
-        cur.close()
         conn.close()
+        cur.close()
 
 
 def __build_html_table(column_names, rows):
