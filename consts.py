@@ -10,4 +10,5 @@ ADMIN_USER = 'NamelessOne'
 ADMIN_PASSWORD = 'luxextenebris'
 CALENDAR_URL = "https://www.googleapis.com/calendar/v3/calendars/fantasyradioru@gmail.com/events?" \
                "key=AIzaSyDam413Hzm4l8GOEEg-NF8w8wdAbUsKEjM&maxResults=50&singleEvents=true&orderBy=startTime"
-STREAM_INFO_URL = "http://fantasyradio.ru/player_ref16.php"
+STREAM_INFO_PLAYER_URL = "http://fantasyradio.ru/player.php"
+STREAM_INFO_ABOUT_URL = "http://fantasyradio.ru/player_podrobnee.html"
