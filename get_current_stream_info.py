@@ -1,5 +1,5 @@
 import consts
-#import pymysql
+import pymysql
 import urllib.request
 import html.parser
 
