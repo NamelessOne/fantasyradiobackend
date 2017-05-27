@@ -1,5 +1,3 @@
-__author__ = 'NamelessOne'
-
 # import consts
 import urllib.request
 import datetime
