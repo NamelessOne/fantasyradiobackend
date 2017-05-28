@@ -21,7 +21,7 @@ class ImageParser(html.parser.HTMLParser):
             if 'alt' in attributes and attributes['alt'] == 'Страница автора':
                 self.img = attributes['src']
 
-#Третий tr, внутри него b
+
 class AboutParser(html.parser.HTMLParser):
     def __init__(self):
         html.parser.HTMLParser.__init__(self)
@@ -66,7 +66,7 @@ image_response = urllib.request.urlopen(consts.STREAM_INFO_PLAYER_URL)
 image_html = str(image_response.read().decode('windows-1251'))
 image_parser = ImageParser()
 image_parser.feed(image_html)
-#About
+# About
 about_response = urllib.request.urlopen(consts.STREAM_INFO_ABOUT_URL)
 about_html = str(about_response.read().decode('windows-1251'))
 about_parser = AboutParser()

@@ -11,6 +11,8 @@ import templates_builder
 import consts
 import schedule
 import sys
+import current_stream
+
 if sys.version < '3':
     import codecs
 
@@ -69,6 +71,9 @@ def application(environ, start_response):
         else:
             start_response('200 OK', [('Content-Type', 'text/html')])
             return templates_builder.render('auth.html', 'text/html')
+    if environ['PATH_INFO'] == '/current':
+        start_response('200 OK', [('Content-Type', 'application/json')])
+        return current_stream.get_current_stream_info_json()
     start_response('200 OK', [('Content-Type', 'text/html')])
     return [('''Привет %(subject)s
     #Hello %(subject)s!
