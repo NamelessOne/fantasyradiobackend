@@ -15,7 +15,7 @@ def _get_db_entities():
                                use_unicode=True, charset='utf8')
         cur = conn.cursor(pymysql.cursors.DictCursor)
         cur.execute('SELECT About, ImageURL FROM CurrentStreamInformation ORDER BY CREATED DESC LIMIT 1')
-        row = cur.fetchall()
+        row = cur.fetchall()[0]
         # ------------------------
         return row
     finally:
