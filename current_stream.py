@@ -14,7 +14,7 @@ def _get_db_entities():
         conn = pymysql.connect(host=consts.HOST, port=3306, user=consts.USER, passwd=consts.PASSWORD, db=consts.DB,
                                use_unicode=True, charset='utf8')
         cur = conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute('SELECT TOP 1 About, ImageURL FROM CurrentStreamInformation ORDER BY CREATED DESC LIMIT 1')
+        cur.execute('SELECT About, ImageURL FROM CurrentStreamInformation ORDER BY CREATED DESC LIMIT 1')
         row = cur.fetchall()
         # ------------------------
         return row
